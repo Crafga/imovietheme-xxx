@@ -1,6 +1,9 @@
 import type { Handle } from '@sveltejs/kit';
 import { lucia } from '$lib/server/Lucia';
 import { db } from '$lib/server/db';
+import { readFile } from 'fs/promises';
+import { existsSync } from 'fs';
+import path from 'path';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	if (event.url.pathname.startsWith('/.well-known/')) {
@@ -43,6 +46,35 @@ export const handle: Handle = async ({ event, resolve }) => {
 		}
 		event.locals.user = user;
 		event.locals.session = session;
+	}
+
+	// 🗂️ Static file serving for production
+	if (pathname.startsWith('/uploads/')) {
+		try {
+			const filePath = path.join(process.cwd(), 'static', event.url.pathname);
+			if (existsSync(filePath)) {
+				const file = await readFile(filePath);
+				const ext = path.extname(filePath).toLowerCase();
+				
+				let contentType = 'application/octet-stream';
+				if (ext === '.png') contentType = 'image/png';
+				else if (ext === '.jpg' || ext === '.jpeg') contentType = 'image/jpeg';
+				else if (ext === '.gif') contentType = 'image/gif';
+				else if (ext === '.webp') contentType = 'image/webp';
+				else if (ext === '.svg') contentType = 'image/svg+xml';
+				
+				return new Response(file, {
+					headers: {
+						'Content-Type': contentType,
+						'Cache-Control': 'public, max-age=31536000'
+					}
+				});
+			}
+		} catch (err) {
+			console.error('Static file serving error:', err);
+		}
+		// Return 404 if file not found
+		return new Response('Not Found', { status: 404 });
 	}
 
 	let theme = 'skeleton';
