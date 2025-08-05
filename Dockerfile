@@ -26,6 +26,10 @@ RUN pnpm prisma generate
 # Bundle app source
 RUN pnpm build
 
+# Create necessary directories with proper permissions
+RUN mkdir -p /app/static/images /app/static/uploads && \
+    chmod 755 /app/static/images /app/static/uploads
+
 # Expose the port on which your app runs
 EXPOSE 3000
 
