@@ -8,7 +8,7 @@ services:
       - ${XPORT}:3000
     environment:
       - PRIVATE_MOVIES_API_URL=${PRIVATE_MOVIES_API_URL}
-      - PRIVATE_MOVIES_API_KEY=${VITE_FIREBASE_AUTH_DOMAIN}
+      - PRIVATE_MOVIES_API_KEY=${PRIVATE_MOVIES_API_KEY}
     volumes:
       - ./uploads:/app/static/uploads
     pull_policy: build
