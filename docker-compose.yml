@@ -1,0 +1,15 @@
+services:
+  imovie-xxx:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: imovie-theme-xxx
+    ports:
+      - ${XPORT}:3000
+    environment:
+      - PRIVATE_MOVIES_API_URL=${PRIVATE_MOVIES_API_URL}
+      - PRIVATE_MOVIES_API_KEY=${VITE_FIREBASE_AUTH_DOMAIN}
+    volumes:
+      - ./uploads:/app/static/uploads
+    pull_policy: build
+    restart: unless-stopped

@@ -1,0 +1,33 @@
+# Use an official Node.js runtime as the base image
+FROM node:lts-alpine3.21
+
+# ENV NODE_TLS_REJECT_UNAUTHORIZED=0
+# RUN npm config set strict-ssl false
+
+RUN npm install -g pnpm
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy package.json and package-lock.json (if available)
+COPY package*.json ./
+
+COPY pnpm-lock.yaml ./
+
+# Install Node.js dependencies
+# RUN pnpm install
+
+RUN pnpm install
+
+COPY . .
+
+RUN pnpm prisma generate
+
+# Bundle app source
+RUN pnpm build
+
+# Expose the port on which your app runs
+EXPOSE 3000
+
+# Command to run your Node.js application
+CMD ["node", "build/index.js"]
