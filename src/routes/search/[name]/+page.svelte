@@ -64,7 +64,7 @@
 			{:else}
 				<div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-2 md:gap-4">
 					{#each filteredMovies as movie, i}
-						<div class="movie-card group animate-fadeInUp" style="animation-delay: {i * 0.05}s">
+						<div class="movie-card group animate-fadeInUp">
 							<a href="/movie/{movie.Title}" class="block">
 								<!-- Image Container -->
 								<div class="relative overflow-hidden rounded-md mb-3">

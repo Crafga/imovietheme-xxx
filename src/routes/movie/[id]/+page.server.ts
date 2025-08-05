@@ -7,9 +7,12 @@ export const load: PageServerLoad = async ({ params, url }) => {
     const page = url.searchParams.get('page') || '1';
  
     const mvList = await FiltersMovie(page, '', '', postName);
+
+    const cate = await Categories();
     
     return {
         MovieList: mvList.data,
+        category: cate.data.categories,
         postName
     };
 }

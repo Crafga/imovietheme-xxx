@@ -61,9 +61,9 @@
 <Modal />
 
 <!-- Modern Navigation -->
-<div class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-surface-backdrop-token">
+<div class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-surface-800">
 	<div class="container mx-auto px-4">
-		<div class="flex items-center justify-between h-16">
+		<div class="flex items-center justify-between h-16 ">
 			<!-- Logo -->
 			<a href="/" class="flex items-center space-x-2 animate-slideInLeft">
 				<div class="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
@@ -82,12 +82,12 @@
 						on:keydown={handleKeyDown}
 						class="input variant-form-material pr-4 px-4 py-2 pl-10"
 					/>
-					<Icon icon="mdi:magnify" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
+					<Icon icon="mdi:magnify" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white" />
 				</div>
 			</div>
 
 			<!-- Desktop Navigation -->
-			<nav class="hidden md:flex items-center space-x-1">
+			<nav class="flex items-center space-x-1">
 				<LightSwitch />
 			</nav>
 		</div>
@@ -99,9 +99,10 @@
 					type="text" 
 					placeholder="ค้นหาหนัง..."
 					bind:value={searchTerm}
+					on:keydown={handleKeyDown}
 					class=" px-4 py-2 pl-10 pr-4 rounded-xl input variant-form-material"
 				/>
-				<Icon icon="mdi:magnify" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
+				<Icon icon="mdi:magnify" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white" />
 			</div>
 		</div>
 	</div>
@@ -110,7 +111,7 @@
 <!-- Floating Side Ads -->
 {#if leftAdVisible}
 <div class="fixed left-1 md:left-4 top-1/2 transform -translate-y-1/2 z-40">
-	<div class="relative w-16 h-48 md:w-24 lg:w-32 md:h-64 lg:h-96 bg-surface-200-700-token border border-surface-300-600-token shadow-lg">
+	<div class="relative w-16 h-48 md:w-24 lg:w-32 md:h-64 lg:h-96 bg-surface-200-700-token shadow-lg">
 		<!-- Close Button -->
 		<button 
 			on:click={closeLeftAd}
@@ -129,7 +130,7 @@
 
 {#if rightAdVisible}
 <div class="fixed right-1 md:right-4 top-1/2 transform -translate-y-1/2 z-40">
-	<div class="relative w-16 h-48 md:w-24 lg:w-32 md:h-64 lg:h-96 bg-surface-200-700-token border border-surface-300-600-token shadow-lg">
+	<div class="relative w-16 h-48 md:w-24 lg:w-32 md:h-64 lg:h-96 bg-surface-200-700-token shadow-lg">
 		<!-- Close Button -->
 		<button 
 			on:click={closeRightAd}
@@ -147,21 +148,21 @@
 {/if}
 
 <!-- Fixed Bottom Ad -->
-<!-- {#if bottomAdVisible}
+{#if bottomAdVisible}
 <div class="fixed left-0 right-0 z-50 lg:bottom-0 bottom-16">
-	<div class="relative max-w-6xl mx-auto bg-surface-200-700-token border-t border-surface-300-600-token shadow-lg">
+	<div class="relative max-w-6xl mx-auto bg-surface-200-700-token shadow-lg">
 		<div class="h-12 md:h-20 bg-gradient-to-r from-slate-700 to-slate-600 flex items-center justify-center text-white font-bold text-center">
 			<span class="text-xs md:text-lg">โฆษณาด้านล่าง - 728x90 Leaderboard</span>
 		</div>
 		<button 
 			on:click={closeBottomAd}
-			class="absolute top-1 right-1 w-6 h-6 bg-error-500 hover:bg-error-600 rounded-full flex items-center justify-center text-white text-xs font-bold transition-colors duration-200 shadow-md"
+			class="absolute -top-2 right-0 w-6 h-6 bg-error-500 hover:bg-error-600 rounded-full flex items-center justify-center text-white text-xs font-bold transition-colors duration-200 shadow-md"
 		>
 			<Icon icon="mdi:close" class="w-4 h-4" />
 		</button>
 	</div>
 </div>
-{/if} -->
+{/if}
 
 <!-- Main Content -->
 <main class="pt-20 min-h-screen pb-28 lg:pb-20">

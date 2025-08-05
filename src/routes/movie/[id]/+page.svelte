@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import Icon from '@iconify/svelte';
+	import MobileCategories from '$lib/components/MobileCategories.svelte';
 
 	export let data: PageData;
 
@@ -28,11 +29,18 @@
 
 <div class="pt-20">
 	<!-- Top Advertisement Section -->
+	<div class="container mx-auto p-2">
+		<ol class="breadcrumb mt-1">
+			<li class="crumb"><a class="anchor" href="/"><Icon icon="solar:home-angle-2-bold" width="30" /></a></li>
+			<li class="crumb-separator" aria-hidden="true">&rsaquo;</li>
+			<li>{movie[0].Title}</li>
+		</ol>
+	</div>
 	<div class="container mx-auto p-2 md:p-4">
 		<div class="flex flex-row justify-center items-start gap-1 md:gap-4 overflow-x-auto">
 			<!-- Left Vertical Ad -->
 			<div class="flex-shrink-0">
-				<div class="bg-surface-200-700-token border border-surface-300-600-token shadow-lg">
+				<div class="bg-surface-200-700-token shadow-lg">
 					<div class="w-20 h-32 md:w-48 md:h-96 bg-gradient-to-b from-slate-700 to-slate-600 flex items-center justify-center font-bold text-center">
 						<span class="text-xs md:text-sm">โฆษณาซ้าย<br>180x300</span>
 					</div>
@@ -41,12 +49,12 @@
 			
 			<!-- Center Horizontal Ad -->
 			<div class="flex-1 min-w-0">
-				<div class="bg-surface-200-700-token border border-surface-300-600-token shadow-lg mb-1">
+				<div class="bg-surface-200-700-token shadow-lg mb-1">
 					<div class="w-full h-32 md:h-48 bg-gradient-to-r from-slate-700 to-slate-600 flex items-center justify-center font-bold text-white text-center">
 						<span class="text-base md:text-lg">โฆษณากลาง - 848x148</span>
 					</div>
 				</div>
-				<div class="bg-surface-200-700-token border border-surface-300-600-token shadow-lg mb-1">
+				<div class="bg-surface-200-700-token shadow-lg mb-1">
 					<div class="w-full h-32 md:h-48 bg-gradient-to-r from-slate-700 to-slate-600 flex items-center justify-center font-bold text-white text-center">
 						<span class="text-base md:text-lg">โฆษณากลาง - 848x148</span>
 					</div>
@@ -55,7 +63,7 @@
 			
 			<!-- Right Vertical Ad -->
 			<div class="flex-shrink-0">
-				<div class="bg-surface-200-700-token border border-surface-300-600-token shadow-lg">
+				<div class="bg-surface-200-700-token shadow-lg">
 					<div class="w-20 h-32 md:w-48 md:h-96 bg-gradient-to-b from-slate-700 to-slate-600 flex items-center justify-center font-bold text-center">
 						<span class="text-xs md:text-sm">โฆษณาขวา<br>180x300</span>
 					</div>
@@ -88,13 +96,13 @@
 						<Icon icon="mdi:close" class="w-6 h-6 md:w-5 md:h-5" />
 					</button>
 					
-					<div class="bg-surface-200-700-token border border-surface-300-600-token shadow-2xl">
+					<div class="bg-surface-200-700-token shadow-2xl">
 						<div class="w-40 h-24 md:w-80 md:h-36 bg-gradient-to-br from-slate-700 to-slate-600 flex items-center justify-center text-white font-bold text-center p-2 md:p-4">
 							<span class="text-xs md:text-base">Player 1<br>160x96</span>
 						</div>
 					</div>
 					
-					<div class="bg-surface-200-700-token border border-surface-300-600-token shadow-2xl">
+					<div class="bg-surface-200-700-token shadow-2xl">
 						<div class="w-40 h-24 md:w-80 md:h-36 bg-gradient-to-br from-slate-700 to-slate-600 flex items-center justify-center text-white font-bold text-center p-2 md:p-4">
 							<span class="text-xs md:text-base">Player 2<br>160x96</span>
 						</div>
@@ -109,7 +117,7 @@
 		<div class="flex flex-row justify-center items-start gap-1 md:gap-4 overflow-x-auto">
 			<!-- Left Vertical Ad -->
 			<div class="flex-shrink-0">
-				<div class="bg-surface-200-700-token border border-surface-300-600-token shadow-lg">
+				<div class="bg-surface-200-700-token shadow-lg">
 					<div class="w-20 h-32 md:w-48 md:h-96 bg-gradient-to-b from-slate-700 to-slate-600 flex items-center justify-center font-bold text-center">
 						<span class="text-xs md:text-sm">โฆษณาซ้าย<br>180x300</span>
 					</div>
@@ -118,12 +126,12 @@
 			
 			<!-- Center Horizontal Ad -->
 			<div class="flex-1 min-w-0">
-				<div class="bg-surface-200-700-token border border-surface-300-600-token shadow-lg mb-1">
+				<div class="bg-surface-200-700-token shadow-lg mb-1">
 					<div class="w-full h-32 md:h-48 bg-gradient-to-r from-slate-700 to-slate-600 flex items-center justify-center font-bold text-white text-center">
 						<span class="text-base md:text-lg">โฆษณากลาง - 848x148</span>
 					</div>
 				</div>
-				<div class="bg-surface-200-700-token border border-surface-300-600-token shadow-lg mb-1">
+				<div class="bg-surface-200-700-token shadow-lg mb-1">
 					<div class="w-full h-32 md:h-48 bg-gradient-to-r from-slate-700 to-slate-600 flex items-center justify-center font-bold text-white text-center">
 						<span class="text-base md:text-lg">โฆษณากลาง - 848x148</span>
 					</div>
@@ -132,7 +140,7 @@
 			
 			<!-- Right Vertical Ad -->
 			<div class="flex-shrink-0">
-				<div class="bg-surface-200-700-token border border-surface-300-600-token shadow-lg">
+				<div class="bg-surface-200-700-token shadow-lg">
 					<div class="w-20 h-32 md:w-48 md:h-96 bg-gradient-to-b from-slate-700 to-slate-600 flex items-center justify-center font-bold text-center">
 						<span class="text-xs md:text-sm">โฆษณาขวา<br>180x300</span>
 					</div>
@@ -146,7 +154,7 @@
 			<div class="flex flex-col md:flex-row gap-6 items-start">
 				<img src="{movie[0].Img}" alt="{movie[0].Title}" loading="lazy" class="rounded-md">
 				<!-- Info -->
-				<div class="flex-1 text-white space-y-4">
+				<div class="flex-1 space-y-4">
 					<h1 class="h1 md:h2 font-bold ">{movie[0].Title}</h1>
 					<div class="flex flex-wrap gap-2">
 						{#each movie[0].Categories || [] as c}
@@ -186,7 +194,7 @@
 		<div class="flex flex-row justify-center items-start gap-1 md:gap-4 overflow-x-auto">
 			<!-- Left Vertical Ad -->
 			<div class="flex-shrink-0">
-				<div class="bg-surface-200-700-token border border-surface-300-600-token shadow-lg">
+				<div class="bg-surface-200-700-token shadow-lg">
 					<div class="w-20 h-32 md:w-48 md:h-96 bg-gradient-to-b from-slate-700 to-slate-600 flex items-center justify-center font-bold text-center">
 						<span class="text-xs md:text-sm">โฆษณาซ้าย<br>180x300</span>
 					</div>
@@ -195,12 +203,12 @@
 			
 			<!-- Center Horizontal Ad -->
 			<div class="flex-1 min-w-0">
-				<div class="bg-surface-200-700-token border border-surface-300-600-token shadow-lg mb-1">
+				<div class="bg-surface-200-700-token shadow-lg mb-1">
 					<div class="w-full h-32 md:h-48 bg-gradient-to-r from-slate-700 to-slate-600 flex items-center justify-center font-bold text-white text-center">
 						<span class="text-base md:text-lg">โฆษณากลาง - 848x148</span>
 					</div>
 				</div>
-				<div class="bg-surface-200-700-token border border-surface-300-600-token shadow-lg mb-1">
+				<div class="bg-surface-200-700-token shadow-lg mb-1">
 					<div class="w-full h-32 md:h-48 bg-gradient-to-r from-slate-700 to-slate-600 flex items-center justify-center font-bold text-white text-center">
 						<span class="text-base md:text-lg">โฆษณากลาง - 848x148</span>
 					</div>
@@ -209,7 +217,7 @@
 			
 			<!-- Right Vertical Ad -->
 			<div class="flex-shrink-0">
-				<div class="bg-surface-200-700-token border border-surface-300-600-token shadow-lg">
+				<div class="bg-surface-200-700-token shadow-lg">
 					<div class="w-20 h-32 md:w-48 md:h-96 bg-gradient-to-b from-slate-700 to-slate-600 flex items-center justify-center font-bold text-center">
 						<span class="text-xs md:text-sm">โฆษณาขวา<br>180x300</span>
 					</div>
@@ -217,6 +225,6 @@
 			</div>
 		</div>
 	</div>
-
 </div>
+<MobileCategories categories={data.category}/>
 
