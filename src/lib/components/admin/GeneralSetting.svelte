@@ -13,8 +13,8 @@
 
 	let formData = {
 		id: general?.id ?? '',
-		logo: '',
-		favicon: ''
+		logo: general?.logo ?? '',
+		favicon: general?.favicon ?? ''
 	};
 
 	// อัปเดตข้อมูลเมื่อ component mount หรือ value เปลี่ยน
@@ -22,9 +22,9 @@
 		updateFormData();
 	}
 
-	function updateFormData() {
-		formData.logo = general.logo ?? '';
-		formData.favicon = general.favicon ?? '';
+	const updateFormData = () => {
+		formData.logo = general?.logo ?? '';
+		formData.favicon = general?.favicon ?? '';
 	}
 
 
