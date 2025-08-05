@@ -1,8 +1,8 @@
 # Use an official Node.js runtime as the base image
-FROM node:lts-alpine3.21
+FROM node:lts-alpine3.19
 
-# ENV NODE_TLS_REJECT_UNAUTHORIZED=0
-# RUN npm config set strict-ssl false
+ENV NODE_TLS_REJECT_UNAUTHORIZED=0
+RUN npm config set strict-ssl false
 
 RUN npm install -g pnpm
 
