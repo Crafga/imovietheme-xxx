@@ -21,7 +21,7 @@ RUN pnpm install
 
 COPY . .
 
-# RUN pnpm prisma generate
+RUN pnpm prisma generate
 
 # Bundle app source
 RUN pnpm build

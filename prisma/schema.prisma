@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id          String             @id @default(uuid())
+  username    String
+  password    String
+  role        String
+  status      Boolean
+  isEnableOTP Boolean?           @default(false)
+  otpSecret   String?
+  ApiKey      String?
+  sessions    CustomersSession[]
+}
+
+model CustomersSession {
+  id        String   @id @default(uuid())
+  userId    String
+  expiresAt DateTime @default(now())
+  user      user     @relation(fields: [userId], references: [id], onDelete: Cascade, map: "customerssession_userId_fkey_relation")
+}
+
+model Ads {
+  id       String    @id @default(cuid())
+  title    String?
+  url      String?
+  adsType  String?
+  position String?
+  expired  String?
+  createAt DateTime  @default(now())
+  updateAt DateTime?
+}
+
+model Settings {
+  id          String  @id @default(cuid())
+  webname     String?
+  title       String?
+  keyword     String?
+  description String?
+  logo        String?
+  favicon     String?
+  theme       String?
+  footerText  String?
+}

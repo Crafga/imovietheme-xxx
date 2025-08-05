@@ -1,0 +1,6 @@
+import { writable, type Writable } from 'svelte/store';
+import { browser } from '$app/environment';
+
+export const storeTheme = writable(
+	browser ? (document.body.getAttribute('data-theme') ?? '') : 'skeleton'
+);

@@ -28,6 +28,30 @@ export const MovieList = async (page: string = "1") => {
     }
 }
 
+export const getMovieByID = async (id: string) => {
+    try {
+        const req = await axios.get(`${urlAPI}/api/v1/getMovieById?id=${id}`, {
+            headers: {
+                'authorization': `${ApiKey}`,
+                'Content-Type': 'application/json',
+            }
+        });
+        if (req.data.status === 200) {
+            return { data: req.data }
+        } else {
+            return {
+                data: null
+            }
+        }
+    } catch (error) {
+        return {
+            status: 400,
+            data: null,
+            message: error
+        }
+    }
+}
+
 export const FiltersMovie = async (page: string = "1", categorie: string = '', tag: string = '', postName: string = '') => {
     let config = {
         "categorie": categorie,
