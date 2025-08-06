@@ -211,7 +211,7 @@
 	<!--movie similar-->
 	<div class="container mx-auto p-4 md:p-8">
 		<div class="space-y-6">
-			<h2 class="h2 font-bold text-center md:text-center">หมวดหมู่ที่คล้ายกัน</h2>
+			<h2 class="h2 font-bold text-center md:text-center">หนังใหม่</h2>
 			
 			<!-- Similar Movies Grid -->
 			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-2 md:gap-4">
