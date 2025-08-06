@@ -90,9 +90,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<meta name="theme-color" content="#1f2937" />
 	
-	<!-- Site verification -->
-	<meta name="google-site-verification" content={data.set?.googleSiteVerify ?? ''} />
-	
 	<!-- Global SEO meta tags -->
 	<meta name="author" content={data.set?.title ?? 'iMovie'} />
 	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -107,17 +104,6 @@
 	<link rel="icon" href={data.set?.favicon ?? '/player.png'} />
 	<link rel="apple-touch-icon" href={data.set?.favicon ?? '/player.png'} />
 
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id={data.set?.googleTag ?? ''}"></script>
-
-	{@html `<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-
-		gtag('config', '${gtagData}');
-	</script>
-	`}
 	<!-- Structured Data -->
 	{@html `<script type="application/ld+json">${JSON.stringify(websiteJsonLd)}</script>`}
 </svelte:head>
