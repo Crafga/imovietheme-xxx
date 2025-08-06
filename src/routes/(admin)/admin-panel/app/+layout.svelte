@@ -114,6 +114,9 @@
 			</svelte:fragment>
 
 			<svelte:fragment slot="trail">
+				<a href="/" class="btn btn-sm variant-outline-success" target="_blank"> 
+					<Icon icon="dashicons:admin-site-alt3" width="20" class="mr-1"/> View Site
+				</a>
 				<LightSwitch />
 				<div use:popup={popupPlacement} class="hover:cursor-pointer flex flex-row items-center gap-3 hover:bg-primary-hover-token rounded-full p-2">
 					<Avatar initials={data.user?.username ?? ''} background="bg-primary-500" width="w-10" />
