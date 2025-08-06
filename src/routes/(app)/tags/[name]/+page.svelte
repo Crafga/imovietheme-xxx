@@ -135,11 +135,11 @@
 										</div>
 									</div>
 
-									<!-- Tags on Hover -->
+									<!-- Categories on Hover -->
 									<div class="absolute bottom-2 left-2 right-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0">
 										<div class="flex flex-wrap gap-1">
 											{#each movie.Categories as cate}
-												<span class="px-2 py-1 bg-white/20 backdrop-blur-sm text-xs rounded-full border border-white/30">
+												<span class="badge variant-ghost-tertiary text-white">
 													{cate}
 												</span>
 											{/each}

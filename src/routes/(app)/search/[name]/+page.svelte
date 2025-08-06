@@ -15,8 +15,6 @@
 	$: currentPage = data.MovieList.currentPage ?? 1
 	$: totalPages = data.MovieList.totalPages ?? 0
 
-	$: pageList = getPageRange(currentPage, totalPages);
-
 	$: filteredMovies = movies;
 	let isLoading = false;
 

@@ -126,7 +126,7 @@
 				src="{movie.embed}"
 				allowfullscreen
 				scrolling="no"
-				class="absolute inset-0 w-full h-full border-none"
+				class=" inset-0 w-full h-full border-none"
 			></iframe>
 			
 			<!-- Floating Overlay Ads -->
