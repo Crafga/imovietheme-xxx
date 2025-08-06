@@ -15,7 +15,7 @@
 	}
 
 	// Enhanced categories with icons and gradients
-	const categories: Category[] = (data.category ?? []).map((cat: Category) => ({
+	const categories: Category[] = (data.category?.categories ?? []).map((cat: Category) => ({
 		...cat,
 	}));
 
@@ -37,7 +37,7 @@
 			'หนังดราม่า',
 			'หนังสยองขวัญ',
 			'หนังรักโรแมนติก',
-			...(data.category?.map((cat: any) => cat.name) || [])
+			...(data.category?.categories?.map((cat: any) => cat.name) || [])
 		],
 		canonical: data.currentUrl,
 		type: 'website' as const,

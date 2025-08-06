@@ -14,8 +14,8 @@ export const load: PageServerLoad = async ({ params, url }) => {
     
     return {
         MovieList: mvList.data,
-        category: cate.data.categories,
-        tags: tag.data.tags,
+        category: cate.data,
+        tags: tag.data,
         tagName,
         settings,
         baseUrl: `${url.protocol}//${url.host}`,

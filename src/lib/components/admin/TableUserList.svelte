@@ -61,8 +61,8 @@
 
 <div class="p-10">
 	<section class="space-y-4">
-		<span class="badge variant-soft translate-y-1">Users</span>
-		<h3 class="h3">Users List</h3>
+		<span class="badge variant-soft translate-y-1">Admins</span>
+		<h3 class="h3">Admins List</h3>
     </section>
 
     <div class="grid grid-cols-1 sm:grid-cols-1 my-6 gap-4">

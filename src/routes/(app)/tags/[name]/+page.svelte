@@ -11,13 +11,13 @@
 
 	export let data: PageData;
 
-	$: movies = data.MovieList.ListFilter ?? [];
+	$: movies = data.MovieList?.ListFilter ?? [];
 
-	$: currentPage = data.MovieList.currentPage ?? 1
-	$: totalPages = data.MovieList.totalPages ?? 0
+	$: currentPage = data.MovieList?.currentPage ?? 1
+	$: totalPages = data.MovieList?.totalPages ?? 0
 
 	$: pageList = getPageRange(currentPage, totalPages);
-    $: randomTags = getRandomItems(data.tags as Tag[], 20);
+    $: randomTags = getRandomItems(data.tags?.tags as Tag[], 20);
 
 	$: filteredMovies = movies;
 	let isLoading = false;
@@ -77,7 +77,7 @@
 <div class="container mx-auto p-4">
 	<div class="flex gap-6">
 		<!-- Sidebar Categories -->
-		<SidebarCategories categories={data.category}/>
+		<SidebarCategories categories={data.category?.categories ?? []}/>
 
 		<!-- Main Content -->
 		<div class="flex-1 mt-10">
@@ -194,7 +194,7 @@
 </div>
 
 <!-- Mobile Categories (Bottom Sheet Style) -->
-<MobileCategories categories={data.category}/>
+<MobileCategories categories={data.category?.categories ?? []}/>
 
 <!-- Add bottom padding for mobile -->
 <div class="lg:hidden h-20"></div>
