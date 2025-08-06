@@ -1,8 +1,8 @@
 <script lang="ts">
 	import '../../../admin.postcss';
 	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
-	// import type { PageData } from './$types';
-	// export let data: PageData;
+	import type { PageData } from './$types';
+	export let data: PageData;
 	
 	import { LightSwitch } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
@@ -35,6 +35,7 @@
 
 <svelte:head>
 	<title>ADMIN - LOGIN</title>
+	<link rel="icon" href={data.set?.favicon ?? '/player.png'} />
 </svelte:head>
 
 <AppShell>
@@ -42,7 +43,8 @@
 		<AppBar>
 			<svelte:fragment slot="lead">
 				<a href="/admin-panel">
-					<strong class="text-xl">iMovie</strong>
+					<img src={data.set?.logo ?? '/logo3.png'} alt={data.set?.title ?? 'iMovie'} width="200">
+					<!-- <strong class="text-xl">iMovie</strong> -->
 				</a>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">

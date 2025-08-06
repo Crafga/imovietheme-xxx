@@ -7,6 +7,10 @@
 	import { navigating } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { alertError } from '$lib/utils/alerts';
+	import { browser } from '$app/environment';
+	import { storeTheme } from '$lib/stores/stores';
+	import { onMount } from 'svelte';
+	import { generateWebsiteJsonLd, type JsonLd } from '$lib/utils/seo';
 
 	export let data: LayoutData;
 	// Floating UI for Popups
@@ -15,6 +19,16 @@
 	initializeStores();
 	const drawerStore = getDrawerStore();
 	const toastStore = getToastStore();
+
+	let gtagData = data.set?.googleTag ?? '';
+
+	// Get theme from data with fallback
+	$: theme = data.set?.theme ?? 'skeleton';
+	
+	// Update theme when data changes - hooks.client will handle DOM updates
+	$: if (browser && theme !== $storeTheme) {
+		storeTheme.set(theme);
+	}
 
 	// storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 	// Configure NProgress
@@ -58,13 +72,54 @@
 	const closeBottomAd = () => {
 		bottomAdVisible = false;
 	};
+
+	// SEO: Generate structured data
+	$: websiteJsonLd = generateWebsiteJsonLd(
+		data.set?.title ?? 'iMovie',
+		data.set?.description ?? 'ดูหนังออนไลน์ฟรี หนังใหม่ หนังชนโรง',
+		data.baseUrl ?? 'https://example.com'
+	);
 </script>
 
 <Toast position="t"/>
 <Modal />
 
 <svelte:head>
+	<!-- Basic meta tags -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="theme-color" content="#1f2937" />
+	
+	<!-- Site verification -->
+	<meta name="google-site-verification" content={data.set?.googleSiteVerify ?? ''} />
+	
+	<!-- Global SEO meta tags -->
+	<meta name="author" content={data.set?.title ?? 'iMovie'} />
+	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+	<meta name="googlebot" content="index, follow" />
+	<meta name="language" content="th" />
+	<meta property="og:locale" content="th_TH" />
+	<meta property="og:site_name" content={data.set?.title ?? 'iMovie'} />
+	<meta name="twitter:creator" content="@imovie" />
+	<meta name="twitter:site" content="@imovie" />
+	
+	<!-- Favicon -->
 	<link rel="icon" href={data.set?.favicon ?? '/player.png'} />
+	<link rel="apple-touch-icon" href={data.set?.favicon ?? '/player.png'} />
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id={data.set?.googleTag ?? ''}"></script>
+
+	{@html `<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', '${gtagData}');
+	</script>
+	`}
+	<!-- Structured Data -->
+	{@html `<script type="application/ld+json">${JSON.stringify(websiteJsonLd)}</script>`}
 </svelte:head>
 
 <!-- Modern Navigation -->
@@ -116,60 +171,80 @@
 	</div>
 </div>
 
-<!-- Floating Side Ads -->
+<!-- Floating Left Side Ads -->
 {#if leftAdVisible}
-<div class="fixed left-1 md:left-4 top-1/2 transform -translate-y-1/2 z-40">
-	<div class="relative w-16 h-48 md:w-24 lg:w-32 md:h-64 lg:h-96 bg-surface-200-700-token shadow-lg">
-		<!-- Close Button -->
-		<button 
-			on:click={closeLeftAd}
-			class="absolute -top-2 -right-2 w-6 h-6 bg-error-500 hover:bg-error-600 rounded-full flex items-center justify-center text-white text-xs font-bold transition-colors duration-200 shadow-md"
-		>
-			<Icon icon="mdi:close" class="w-4 h-4" />
-		</button>
-		
-		<div class="w-full h-full bg-gradient-to-b from-slate-700 to-slate-600 flex items-center justify-center text-white text-xs font-bold text-center">
-			<span class="hidden md:block">โฆษณา<br>120x400</span>
-			<span class="md:hidden text-xs">โฆษณา<br>120x400</span>
+	{@const leftAd = data.adsLF?.find(ad => ad.position === 'L')}
+	{#if leftAd && (!leftAd.expired || new Date(leftAd.expired) > new Date())}
+		<div class="fixed left-1 md:left-4 top-1/2 transform -translate-y-1/2 z-40">
+			<div class="relative w-16 h-48 md:w-24 lg:w-32 md:h-64 lg:h-96 bg-surface-200-700-token shadow-lg">
+				<!-- Close Button -->
+				<button 
+					on:click={closeLeftAd}
+					class="absolute -top-2 -right-2 w-6 h-6 bg-error-500 hover:bg-error-600 rounded-full flex items-center justify-center text-white text-xs font-bold transition-colors duration-200 shadow-md"
+				>
+					<Icon icon="mdi:close" class="w-4 h-4" />
+				</button>
+				
+				<a href={leftAd.url} target="_blank" class="block w-full h-full">
+					<img 
+						src={leftAd.image} 
+						alt={leftAd.title} 
+						class="w-full h-full object-cover rounded"
+					/>
+				</a>
+			</div>
 		</div>
-	</div>
-</div>
+	{/if}
 {/if}
 
+<!-- Floating Right Side Ads -->
 {#if rightAdVisible}
-<div class="fixed right-1 md:right-4 top-1/2 transform -translate-y-1/2 z-40">
-	<div class="relative w-16 h-48 md:w-24 lg:w-32 md:h-64 lg:h-96 bg-surface-200-700-token shadow-lg">
-		<!-- Close Button -->
-		<button 
-			on:click={closeRightAd}
-			class="absolute -top-2 -left-2 w-6 h-6 bg-error-500 hover:bg-error-600 rounded-full flex items-center justify-center text-white text-xs font-bold transition-colors duration-200 shadow-md"
-		>
-			<Icon icon="mdi:close" class="w-4 h-4" />
-		</button>
-		
-		<div class="w-full h-full bg-gradient-to-b from-slate-700 to-slate-600 flex items-center justify-center text-white text-xs font-bold text-center">
-			<span class="hidden md:block">โฆษณา<br>120x400</span>
-			<span class="md:hidden text-xs">โฆษณา<br>120x400</span>
+	{@const rightAd = data.adsLF?.find(ad => ad.position === 'R')}
+	{#if rightAd && (!rightAd.expired || new Date(rightAd.expired) > new Date())}
+		<div class="fixed right-1 md:right-4 top-1/2 transform -translate-y-1/2 z-40">
+			<div class="relative w-16 h-48 md:w-24 lg:w-32 md:h-64 lg:h-96 bg-surface-200-700-token shadow-lg">
+				<!-- Close Button -->
+				<button 
+					on:click={closeRightAd}
+					class="absolute -top-2 -left-2 w-6 h-6 bg-error-500 hover:bg-error-600 rounded-full flex items-center justify-center text-white text-xs font-bold transition-colors duration-200 shadow-md"
+				>
+					<Icon icon="mdi:close" class="w-4 h-4" />
+				</button>
+				
+				<a href={rightAd.url} target="_blank" class="block w-full h-full">
+					<img 
+						src={rightAd.image} 
+						alt={rightAd.title} 
+						class="w-full h-full object-cover rounded"
+					/>
+				</a>
+			</div>
 		</div>
-	</div>
-</div>
+	{/if}
 {/if}
 
 <!-- Fixed Bottom Ad -->
 {#if bottomAdVisible}
-<div class="fixed left-0 right-0 z-50 lg:bottom-0 bottom-16">
-	<div class="relative max-w-6xl mx-auto bg-surface-200-700-token shadow-lg">
-		<div class="h-12 md:h-20 bg-gradient-to-r from-slate-700 to-slate-600 flex items-center justify-center text-white font-bold text-center">
-			<span class="text-xs md:text-lg">โฆษณาด้านล่าง - 728x90 Leaderboard</span>
+	{@const footerAd = data.adsLF?.find(ad => ad.position === 'FT')}
+	{#if footerAd && (!footerAd.expired || new Date(footerAd.expired) > new Date())}
+		<div class="fixed left-0 right-0 z-50 lg:bottom-0 bottom-16">
+			<div class="relative max-w-6xl mx-auto bg-surface-200-700-token shadow-lg">
+				<a href={footerAd.url} target="_blank" class="block w-full h-full">
+					<img 
+						src={footerAd.image} 
+						alt={footerAd.title} 
+						class="w-full h-full object-cover rounded"
+					/>
+				</a>
+				<button 
+					on:click={closeBottomAd}
+					class="absolute -top-2 right-0 w-6 h-6 bg-error-500 hover:bg-error-600 rounded-full flex items-center justify-center text-white text-xs font-bold transition-colors duration-200 shadow-md"
+				>
+					<Icon icon="mdi:close" class="w-4 h-4" />
+				</button>
+			</div>
 		</div>
-		<button 
-			on:click={closeBottomAd}
-			class="absolute -top-2 right-0 w-6 h-6 bg-error-500 hover:bg-error-600 rounded-full flex items-center justify-center text-white text-xs font-bold transition-colors duration-200 shadow-md"
-		>
-			<Icon icon="mdi:close" class="w-4 h-4" />
-		</button>
-	</div>
-</div>
+	{/if}
 {/if}
 
 <!-- Main Content -->
@@ -183,6 +258,7 @@
 		<div class="border-t border-white/10 mt-8 pt-4 pb-4 text-center text-sm opacity-75">
 			<span>{data.set?.footerText ?? ''}</span>
 			<hr class="mt-2 mb-2">
+			<span>ติดต่อขอหนัง-คลิป (Ask for Porno Videos) <a href="/terms-of-services" class="hover:text-rose-500">Terms Of Service</a></span>
 			<p>Copyrights &copy; 2025 หนังโป๊ หนังx หนังโป๊ออนไลน์ คลิปโป๊ คลิปหลุด คลิปแอบถ่าย หนังโป๊ไทย XXX PORN หี เย็ด หนังAV ดูหนังโป๊ฟรี {data.set?.title ?? 'iMovie'} All rights reserved.</p>
 		</div>
 	</div>

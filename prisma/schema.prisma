@@ -36,21 +36,24 @@ model Ads {
   id       String    @id @default(cuid())
   title    String?
   url      String?
-  adsType  String?
+  image    String?
+  sortBy   String?
   position String?
-  expired  String?
+  expired  DateTime?
   createAt DateTime  @default(now())
   updateAt DateTime?
 }
 
 model Settings {
-  id          String  @id @default(cuid())
-  webname     String?
-  title       String?
-  keyword     String?
-  description String?
-  logo        String?
-  favicon     String?
-  theme       String?
-  footerText  String?
+  id               String  @id @default(cuid())
+  webname          String?
+  title            String?
+  keyword          String?
+  description      String?
+  logo             String?
+  favicon          String?
+  theme            String?
+  footerText       String?
+  googleTag        String?
+  googleSiteVerify String?
 }

@@ -25,6 +25,22 @@
 		<meta http-equiv="X-Content-Type-Options" content="nosniff" />
 		<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 
+		<!-- Critical theme loading script - runs immediately -->
+		<script>
+			// Get theme from server-injected data-theme or fallback
+			(function() {
+				const html = document.documentElement.outerHTML;
+				const themeMatch = html.match(/data-theme="([^"]*)"/);
+				const theme = (themeMatch && themeMatch[1]) || 'skeleton';
+				
+				// Set theme immediately to prevent flash
+				if (typeof document !== 'undefined') {
+					document.documentElement.style.setProperty('--theme-loading', theme);
+					// This will be updated by hooks.server transformPageChunk
+				}
+			})();
+		</script>
+		
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover" data-theme="">

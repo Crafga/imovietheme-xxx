@@ -10,7 +10,12 @@ export const load: PageServerLoad = (async ({ locals }) => {
     if (locals.user || locals.session) {
 		throw redirect(302, '/app/dashboard');
 	}
-	return {};
+
+    const s = await db.settings.findFirst();
+
+	return {
+        set: s
+    };
 });
 
 export const actions: Actions = {

@@ -9,10 +9,14 @@ export const load: PageServerLoad = (async ({ url }) => {
     const mvList = await MovieList(page);
     const cate = await Categories();
     const tag = await Tags();
+    const settings = await db.settings.findFirst();
 
 	return {
         MovieList: mvList.data,
         category: cate.data.categories,
-        tags: tag.data.tags
+        tags: tag.data.tags,
+        settings,
+        baseUrl: `${url.protocol}//${url.host}`,
+        currentUrl: url.href
     };
 });

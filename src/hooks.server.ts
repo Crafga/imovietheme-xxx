@@ -49,7 +49,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	}
 
 	// 🗂️ Static file serving for production
-	if (pathname.startsWith('/uploads/')) {
+	if (pathname.startsWith('/uploads/') || pathname.startsWith('/ads/')) {
 		try {
 			const filePath = path.join(process.cwd(), 'static', event.url.pathname);
 			if (existsSync(filePath)) {
@@ -76,16 +76,21 @@ export const handle: Handle = async ({ event, resolve }) => {
 		// Return 404 if file not found
 		return new Response('Not Found', { status: 404 });
 	}
-
-	let theme = 'skeleton';
+	
 	const ThemeSetting = await db.settings.findFirst();
-	if (ThemeSetting) {
-		theme = `${ThemeSetting.theme}`;
-	}
+	const theme = ThemeSetting?.theme ?? 'skeleton';
 
 	const response = await resolve(event, {
-		transformPageChunk: ({ html }) => html.replace('data-theme=""', `data-theme="${theme}"`)
+		transformPageChunk: ({ html }) => {
+			// Replace both empty and existing data-theme attributes
+			// Ensure theme is properly set on body tag
+			return html
+				.replace(/data-theme="[^"]*"/g, `data-theme="${theme}"`)
+				.replace('data-theme=""', `data-theme="${theme}"`)
+				.replace('<body', `<body data-theme="${theme}"`);
+		}
 	});
+
 	response.headers.delete('Link');
 	response.headers.delete('x-sveltekit-page');
 

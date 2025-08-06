@@ -38,7 +38,7 @@
 
 <div class="p-4">
 	<section class="space-y-4 mb-4">
-		<span class="badge variant-soft-primary translate-y-1">ปัจจุบัน : Theme {$storeTheme}</span>
+		<span class="badge variant-soft-primary translate-y-1">Theme ปัจจุบัน :  {$storeTheme}</span>
 	</section>
 	<div class="flex">
 		<div class="space-y-4 gap-4">

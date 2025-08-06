@@ -108,7 +108,7 @@
 						<Icon icon="uil:bars" width="30" />
 					</button>
 					<a href="/admin-panel/app/dashboard">
-						<strong class="text-xl uppercase">iMovie</strong>
+						<img src={data.set?.logo ?? '/logo3.png'} alt={data.set?.title ?? 'iMovie'} width="200">
 					</a>
 				</div>
 			</svelte:fragment>
@@ -133,7 +133,7 @@
 	
 	<svelte:fragment slot="pageFooter">
 		<div class="flex w-full bg-surface-200-700-token opacity-70 items-center justify-center py-1">
-			Copyrighted 2023 by iMovie
+			Copyrighted 2023 by {data.set?.title ?? 'iMovie'}
 		</div>
 	</svelte:fragment>
 </AppShell>

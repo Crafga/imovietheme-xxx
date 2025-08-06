@@ -3,6 +3,27 @@
 @tailwind utilities;
 @tailwind variants;
 
+/* Critical theme loading - prevents flash */
+:root {
+	--theme-loading: skeleton;
+}
+
+/* Instant theme application before JS loads */
+html[class*="dark"] body:not([data-theme]),
+body:not([data-theme]) {
+	background-color: rgb(var(--color-surface-900) / 1);
+	color: rgb(var(--color-surface-50) / 1);
+}
+
+/* Smooth theme transitions after JS loads */
+body[data-theme] {
+	transition: background-color 0.15s ease-out, color 0.15s ease-out;
+}
+
+body[data-theme] * {
+	transition: background-color 0.15s ease-out, color 0.15s ease-out, border-color 0.15s ease-out;
+}
+
 /* Root Variables */
 :root {
 	--gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);

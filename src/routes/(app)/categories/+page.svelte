@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import Icon from '@iconify/svelte';
+	import { createSeoTitle, truncateDescription, type SeoConfig } from '$lib/utils/seo';
 
 	export let data: PageData;
 
@@ -22,11 +23,48 @@
 	onMount(() => {
 		mounted = true;
 	});
+
+	// SEO Configuration for categories page
+	$: seoConfig = {
+		title: createSeoTitle('หมวดหมู่หนัง', data.settings?.title ?? 'iMovie'),
+		description: truncateDescription('เลือกดูหนังตามหมวดหมู่ที่คุณชื่นชอบ ครบทุกประเภท ทุกแนว คุณภาพ HD'),
+		keywords: [
+			'หมวดหมู่หนัง',
+			'ประเภทหนัง',
+			'แนวหนัง',
+			'หนังแอคชั่น',
+			'หนังคอมมีดี้',
+			'หนังดราม่า',
+			'หนังสยองขวัญ',
+			'หนังรักโรแมนติก',
+			...(data.category?.map((cat: any) => cat.name) || [])
+		],
+		canonical: data.currentUrl,
+		type: 'website' as const,
+		siteName: data.settings?.title ?? 'iMovie',
+		locale: 'th_TH'
+	} as SeoConfig;
 </script>
 
 <svelte:head>
-	<title>หมวดหมู่หนัง - ไอมูวี่</title>
-	<meta name="description" content="เลือกดูหนังตามหมวดหมู่ที่คุณชื่นชอบ" />
+	<!-- Categories Page SEO Meta Tags -->
+	<title>{seoConfig.title}</title>
+	<meta name="description" content={seoConfig.description} />
+	<meta name="keywords" content={seoConfig.keywords?.join(', ')} />
+	<link rel="canonical" href={seoConfig.canonical} />
+	
+	<!-- Open Graph Tags -->
+	<meta property="og:title" content={seoConfig.title} />
+	<meta property="og:description" content={seoConfig.description} />
+	<meta property="og:type" content={seoConfig.type} />
+	<meta property="og:url" content={seoConfig.canonical} />
+	<meta property="og:site_name" content={seoConfig.siteName} />
+	<meta property="og:locale" content={seoConfig.locale} />
+	
+	<!-- Twitter Card Tags -->
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content={seoConfig.title} />
+	<meta name="twitter:description" content={seoConfig.description} />
 </svelte:head>
 
 <div class="relative overflow-hidden min-h-screen">

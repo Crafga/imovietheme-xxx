@@ -81,7 +81,11 @@ export const actions: Actions = {
 			};
 		}
 
-		return { theme };
+		return { 
+			success: true, 
+			theme,
+			message: 'Theme updated successfully'
+		};
 	},
     seoSetting: async ({ request, locals }) => {
         if (!locals.session) {
@@ -120,7 +124,7 @@ export const actions: Actions = {
 			if (!createSeo) {
 				return {
 					success: false,
-					message: `เกิดข้อผิดพลากในการเพิ่มข้อมูล Theme`
+					message: `เกิดข้อผิดพลากในการเพิ่มข้อมูล Seo`
 				};
 			}
 		}
@@ -141,7 +145,7 @@ export const actions: Actions = {
 		if (!update) {
 			return {
 				success: false,
-				message: `เกิดข้อผิดพลากในการอัพเดทข้อมูล Theme`
+				message: `เกิดข้อผิดพลากในการอัพเดทข้อมูล Seo`
 			};
 		}
 
@@ -149,5 +153,66 @@ export const actions: Actions = {
             success: true,
             message: 'แก้ไขข้อมูล Seo สำเร็จ'
         }
-    }
+    },
+	googleSetting: async ({ request, locals }) => {
+		if (!locals.session) {
+            return new Response('Unauthorized', { status: 401 });
+        }
+    
+        const cst = await db.user.findUnique({
+            where: {
+                id: locals.user?.id
+            }
+        });
+    
+        if (!cst || !cst.status) {
+            return new Response('Unauthorized', { status: 401 });
+        }
+
+        const { id, gTag, googleSiteVerify } = await request.json();
+
+		const checkName = await db.settings.findFirst({
+            where: {
+                id: id
+            }
+        });
+
+		if (!checkName) {
+			const createSeo = await db.settings.create({
+				data: {
+					googleTag: gTag,
+					googleSiteVerify: googleSiteVerify
+				}
+			});
+
+			if (!createSeo) {
+				return {
+					success: false,
+					message: `เกิดข้อผิดพลากในการเพิ่มข้อมูล Google`
+				};
+			}
+		}
+
+        const update = await db.settings.update({
+			where: {
+				id: id
+			},
+			data: {
+				googleTag: gTag,
+				googleSiteVerify: googleSiteVerify
+			}
+		});
+
+		if (!update) {
+			return {
+				success: false,
+				message: `เกิดข้อผิดพลากในการอัพเดทข้อมูล Google`
+			};
+		}
+
+        return {
+            success: true,
+            message: 'แก้ไขข้อมูล Google สำเร็จ'
+        }
+	}
 }

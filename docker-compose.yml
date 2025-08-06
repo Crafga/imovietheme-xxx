@@ -12,5 +12,6 @@ services:
       - PRIVATE_MOVIES_API_KEY=${PRIVATE_MOVIES_API_KEY}
     volumes:
       - ./uploads:/app/static/uploads
+      - ./ads:/app/static/ads
     pull_policy: build
     restart: unless-stopped

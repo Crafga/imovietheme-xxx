@@ -4,6 +4,7 @@
     import ThemeSetting from '$lib/components/admin/ThemeSetting.svelte';
     import SeoSetting from '$lib/components/admin/SeoSetting.svelte';
     import GeneralSetting from '$lib/components/admin/GeneralSetting.svelte';
+	import Google from '$lib/components/admin/Google.svelte';
 
     let tabSet: number = 0;
 
@@ -24,6 +25,7 @@
 					<Tab bind:group={tabSet} name="tab4" value={0}>Theme</Tab>
 					<Tab bind:group={tabSet} name="tab1" value={1}>SEO</Tab>
 					<Tab bind:group={tabSet} name="tab5" value={2}>ตั้งค่าทั่วไป</Tab>
+					<Tab bind:group={tabSet} name="tab5" value={3}>Google</Tab>
 					<!-- Tab Panels --->
 					<svelte:fragment slot="panel">
 						{#if tabSet === 0}
@@ -32,6 +34,8 @@
                             <SeoSetting seo={data.settings ?? null}/>
                         {:else if tabSet === 2}
                             <GeneralSetting general={data.settings ?? null}/>
+                        {:else if tabSet === 3}
+                            <Google google={data.settings ?? null}/>
 						{/if}
 					</svelte:fragment>
 				</TabGroup>

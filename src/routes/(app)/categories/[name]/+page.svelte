@@ -7,6 +7,7 @@
 	import { getPageRange, getRandomItems } from '$lib/utils/Helpers';
 	import { goto } from '$app/navigation';
 	import type { Tag } from '$lib/types';
+	import { createSeoTitle, truncateDescription, type SeoConfig } from '$lib/utils/seo';
 
 	export let data: PageData;
 
@@ -30,11 +31,47 @@
 		filterMovies();
 	});
 
+	// SEO Configuration for specific category page
+	$: seoConfig = {
+		title: createSeoTitle(`${data.cateName}`, data.settings?.title ?? 'iMovie'),
+		description: truncateDescription(`ดูหนัง${data.cateName} ออนไลน์ฟรี คุณภาพ HD ซับไทย พากย์ไทย รวมหนัง${data.cateName}ยอดฮิต`),
+		keywords: [
+			`หนัง${data.cateName}`,
+			`${data.cateName}`,
+			'ดูหนังออนไลน์',
+			'หนังฟรี',
+			'HD',
+			'ซับไทย',
+			'พากย์ไทย',
+			...(movies.slice(0, 5).map((movie: { Title: string }) => movie.Title) || [])
+		],
+		canonical: data.currentUrl,
+		type: 'website' as const,
+		siteName: data.settings?.title ?? 'iMovie',
+		locale: 'th_TH'
+	} as SeoConfig;
+
 </script>
 
 <svelte:head>
-	<title>iMovie - ดูหนังออนไลน์คุณภาพสูง</title>
-	<meta name="description" content="ดูหนังออนไลน์คุณภาพสูง ครบทุกเรื่อง ทุกหมวดหมู่" />
+	<!-- Category Specific Page SEO Meta Tags -->
+	<title>{seoConfig.title}</title>
+	<meta name="description" content={seoConfig.description} />
+	<meta name="keywords" content={seoConfig.keywords?.join(', ')} />
+	<link rel="canonical" href={seoConfig.canonical} />
+	
+	<!-- Open Graph Tags -->
+	<meta property="og:title" content={seoConfig.title} />
+	<meta property="og:description" content={seoConfig.description} />
+	<meta property="og:type" content={seoConfig.type} />
+	<meta property="og:url" content={seoConfig.canonical} />
+	<meta property="og:site_name" content={seoConfig.siteName} />
+	<meta property="og:locale" content={seoConfig.locale} />
+	
+	<!-- Twitter Card Tags -->
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content={seoConfig.title} />
+	<meta name="twitter:description" content={seoConfig.description} />
 </svelte:head>
 
 <div class="container mx-auto p-4">
