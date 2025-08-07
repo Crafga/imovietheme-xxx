@@ -129,11 +129,11 @@
         else if (position === 'BL') return 'BL - ด้านบนซ้าย';
         else if (position === 'BR') return 'BR - ด้านบนขวา';
         else if (position === 'CH') return 'CH - ด้านล่างตัวเล่นวีดีโอ (กลาง)';
-        else if (position === 'CBL') return 'CBL - ด้านล่างตัวเล่นวีดีโอ (ด้านบนซ้าย)';
-        else if (position === 'CBR') return 'CBR - ด้านล่างตัวเล่นวีดีโอ (ด้านบนขวา)';
+        else if (position === 'CBL') return 'CBL - ด้านล่างตัวเล่นวีดีโอ (ซ้าย)';
+        else if (position === 'CBR') return 'CBR - ด้านล่างตัวเล่นวีดีโอ (ขวา)';
         else if (position === 'T') return 'T - ด้านล่าง Tag (กลาง)';
-        else if (position === 'TBL') return 'TBL - ด้านล่าง Tag (ด้านบนซ้าย)';
-        else if (position === 'TBR') return 'TBR - ด้านล่าง Tag (ด้านบนขวา)';
+        else if (position === 'TBL') return 'TBL - ด้านล่าง Tag (ซ้าย)';
+        else if (position === 'TBR') return 'TBR - ด้านล่าง Tag (ขวา)';
         else if (position === 'L') return 'L - ป้ายลอยด้านซ้าย (แสดงผลทุกหน้า)';
         else if (position === 'R') return 'R - ป้ายลอยด้านขวา (แสดงผลทุกหน้า)';
         else if (position === 'FT') return 'FT - ป้ายลอยกลางล่าง Footer (แสดงผลทุกหน้า)';
@@ -172,11 +172,11 @@
                         <option value="BL">BL - ด้านบนซ้าย</option>
                         <option value="BR">BR - ด้านบนขวา</option>
                         <option value="CH">CH - ด้านล่างตัวเล่นวีดีโอ (กลาง)</option>
-                        <option value="CBL">CBL - ด้านล่างตัวเล่นวีดีโอ (ด้านบนซ้าย)</option>
-                        <option value="CBR">CBR - ด้านล่างตัวเล่นวีดีโอ (ด้านบนขวา)</option>
+                        <option value="CBL">CBL - ด้านล่างตัวเล่นวีดีโอ (ซ้าย)</option>
+                        <option value="CBR">CBR - ด้านล่างตัวเล่นวีดีโอ (ขวา)</option>
                         <option value="T">T - ด้านล่าง Tag (กลาง)</option>
-                        <option value="TBL">TBL - ด้านล่าง Tag (ด้านบนซ้าย)</option>
-                        <option value="TBR">TBR - ด้านล่าง Tag (ด้านบนขวา)</option>
+                        <option value="TBL">TBL - ด้านล่าง Tag (ซ้าย)</option>
+                        <option value="TBR">TBR - ด้านล่าง Tag (ขวา)</option>
                         <option value="L">L - ป้ายลอยด้านซ้าย (แสดงผลทุกหน้า)</option>
                         <option value="R">R - ป้ายลอยด้านขวา (แสดงผลทุกหน้า)</option>
                         <option value="FT">FT - ป้ายลอยกลางล่าง Footer (แสดงผลทุกหน้า)</option>
