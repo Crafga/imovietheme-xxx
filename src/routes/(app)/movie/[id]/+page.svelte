@@ -2,12 +2,16 @@
 	import type { PageData } from './$types';
 	import Icon from '@iconify/svelte';
 	import MobileCategories from '$lib/components/MobileCategories.svelte';
-	import { generateMovieJsonLd, generateBreadcrumbJsonLd, createSeoTitle, truncateDescription, type SeoConfig } from '$lib/utils/seo';
+	import { generateMovieJsonLd, generateBreadcrumbJsonLd, createSeoTitle, truncateDescription, type SeoConfig, generateShareableContent } from '$lib/utils/seo';
 	import AdsTopPlayer from '$lib/components/admin/AdsTopPlayer.svelte';
 	import AdsBottomPlayer from '$lib/components/admin/AdsBottomPlayer.svelte';
 	import AdsBottomTag from '$lib/components/admin/AdsBottomTag.svelte';
+	import SocialShare from '$lib/components/SocialShare.svelte';
+	import { getToastStore } from '@skeletonlabs/skeleton';
 
 	export let data: PageData;
+
+	const toastStore = getToastStore();
 
 	$: movie = data.MovieList.List ?? [];
 	
@@ -49,6 +53,15 @@
 		} : undefined
 	} as SeoConfig : null;
 
+	// Social Sharing
+	$: shareContent = data.meta
+		? generateShareableContent(data.meta)
+		: {
+				title: `🎬 ${movie.tTitle}`,
+				description: movie.description,
+				url: movie.url,
+				hashtags: 'ดูหนังออนไลน์,หนังฟรี,MovieStreaming'
+			};
 </script>
 
 <svelte:head>
@@ -154,6 +167,57 @@
 				</div>
 			</div>
 			{/if} -->
+		</div>
+		<div class="flex justify-center gap-4">
+			<div class="text-center group">
+				<button
+					on:click={async () => {
+						try {
+							if (navigator.share) {
+								await navigator.share({
+									title: shareContent.title,
+									text: shareContent.description,
+									url: shareContent.url
+								});
+							} else {
+								await navigator.clipboard.writeText('');
+								toastStore.trigger({
+									message: 'คัดลอกลิงก์เรียบร้อย!',
+									background: 'variant-filled-success',
+									timeout: 2000
+								});
+							}
+						} catch (err) {
+							console.error('Share failed:', err);
+							toastStore.trigger({
+								message: 'ไม่สามารถแชร์ได้',
+								background: 'variant-filled-error',
+								timeout: 2000
+							});
+						}
+					}}
+					class="relative w-9 h-9 rounded-full bg-gradient-to-br from-green-500/20 to-emerald-500/20 hover:from-green-500/30 hover:to-emerald-500/30 transition-all duration-300 flex items-center justify-center border border-green-500/30 hover:border-green-500/50 shadow-lg hover:shadow-green-500/25 hover:scale-110"
+				>
+					<Icon
+						icon="heroicons:share"
+						width="20"
+						class="text-green-400 group-hover:text-green-300 transition-all duration-300"
+					/>
+					<!-- Share effect -->
+					<div class="absolute inset-0 rounded-full bg-green-500/30 opacity-0 group-hover:opacity-100 group-hover:animate-ping"></div>
+				</button>
+			</div>
+		
+			<SocialShare
+				title={shareContent.title}
+				description={shareContent.description}
+				url={shareContent.url}
+				image={movie.Img}
+				hashtags={shareContent.hashtags}
+				size="sm"
+				showText={false}
+				variant="minimal"
+			/>
 		</div>
 	</div>
 

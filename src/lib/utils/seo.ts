@@ -185,3 +185,12 @@ export function truncateDescription(text: string, maxLength = 160): string {
 	if (text.length <= maxLength) return text;
 	return text.substring(0, maxLength - 3).trim() + '...';
 }
+
+export function generateShareableContent(movieData: any) {
+	return {
+		title: `🎬 ${movieData.title}`,
+		description: movieData.description || `ดูหนัง ${movieData.title} ออนไลน์ฟรี`,
+		url: movieData.url,
+		hashtags: movieData.hashtags
+	};
+}

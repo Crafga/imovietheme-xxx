@@ -2,7 +2,7 @@ import type { PageServerLoad } from './$types';
 import { Categories, MovieList, getMovieByID } from '$lib/api/MoviesAPI';
 import { db } from '$lib/server/db';
 
-export const load: PageServerLoad = async ({ params, url }) => {
+export const load: PageServerLoad = async ({ params, url, request }) => {
     const id = params.id;
  
     const mvList = await getMovieByID(id);
@@ -28,6 +28,15 @@ export const load: PageServerLoad = async ({ params, url }) => {
         settings,
         baseUrl: `${url.protocol}//${url.host}`,
         currentUrl: url.href,
-        adsDataMovie: ads
+        adsDataMovie: ads,
+        url: `https://${request.headers.get('host') || 'localhost'}/movie/${mvList.data?.List?.id}`,
+        meta: {
+            title: mvList.data?.List?.Title,
+            description: mvList.data?.List?.description,
+            image: mvList.data?.List?.Img,
+            url: `https://${request.headers.get('host') || 'localhost'}/movie/${mvList.data?.List?.id}`,
+            slug: mvList.data?.List?.id,
+            hashtags: mvList.data?.List?.Tag.join(",")
+        }
     };
 }
