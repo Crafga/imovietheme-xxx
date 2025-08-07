@@ -274,7 +274,7 @@
                         {((currentPage - 1) * itemsPerPage) + 1}
                         -
                         {Math.min(currentPage * itemsPerPage, data.adsData.length)}
-                        จาก {data.adsData.length} งวด
+                        จาก {data.adsData.length}
                     {:else}
                         -
                     {/if}
