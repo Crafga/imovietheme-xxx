@@ -173,7 +173,7 @@
 							...
 							</button>
 						{:else}
-							<button on:click={() => goto(`/?page=${page}`)} class="btn btn-sm {page === currentPage ? 'variant-filled-primary' : 'variant-ghost-surface'}" disabled={currentPage === page}>
+							<button on:click={() => goto(`/tags/${data.tagName}?page=${page}`)} class="btn btn-sm {page === currentPage ? 'variant-filled-primary' : 'variant-ghost-surface'}" disabled={currentPage === page}>
 								{page}
 							</button>
 						  {/if}
