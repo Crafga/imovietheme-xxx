@@ -174,7 +174,7 @@
             </div>
             
             <div class="space-y-3 overflow-y-auto">
-                {#each todayMovies.slice(0, 5) as movie, index}
+                {#each todayMovies as movie, index}
                 <div 
                     class="flex items-center space-x-4 p-3 rounded-lg bg-surface-50 dark:bg-surface-800 hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors"
                     in:fly="{{ x: -50, duration: 400, delay: 800 + (index * 100) }}"
@@ -198,12 +198,6 @@
                     </div>
                 </div>
                 {/each}
-                
-                {#if todayMovies.length > 5}
-                <div class="text-center pt-2">
-                    <span class="text-sm opacity-75">และอีก {todayMovies.length - 5} รายการ...</span>
-                </div>
-                {/if}
             </div>
             
             <div class="absolute -top-2 -right-2 w-16 h-16 rounded-full bg-tertiary-500/10 blur-xl"></div>
