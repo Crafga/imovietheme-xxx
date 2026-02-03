@@ -86,7 +86,7 @@
 				<div class="flex flex-col md:flex-row justify-center items-center md:items-center gap-4">
 					<div>
 						<h1 class="text-2xl font-bold mb-2">
-							iMovie หนังโป๊ หนังโป๊ฟรี ดูหนัง18+ คลิปโป๊ คลิปหลุด XXX ฮิตติดชาร์ตอันดับ 1 ของวงการ
+							{data.settings?.title ?? 'iMovie'} หนังโป๊ หนังโป๊ฟรี ดูหนัง18+ คลิปโป๊ คลิปหลุด XXX ฮิตติดชาร์ตอันดับ 1 ของวงการ
 						</h1>
 					</div>
 				</div>
