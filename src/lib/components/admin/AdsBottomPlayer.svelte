@@ -2,6 +2,8 @@
 
     export let ads: any[] = [];
 
+    const cacheBuster = Date.now();
+
     $: CH = ads?.filter((ad: any) => ad.position === 'CH' && (!ad.expired || new Date(ad.expired) > new Date())) || [];
     $: CBL = ads?.filter((ad: any) => ad.position === 'CBL' && (!ad.expired || new Date(ad.expired) > new Date())) || [];
     $: CBR = ads?.filter((ad: any) => ad.position === 'CBR' && (!ad.expired || new Date(ad.expired) > new Date())) || [];
@@ -18,7 +20,7 @@
                         <a href={ad.url} target="_blank">
                             <div class="w-20 h-32 md:w-48 md:h-96 bg-gradient-to-b from-slate-700 to-slate-600 flex items-center justify-center font-bold text-center">
                                 <img 
-                                    src={`${ad.image}?v=${Date.now()}`} 
+                                    src={`${ad.image}?v=${cacheBuster}`} 
                                     alt={ad.title} 
                                     class="w-full h-full object-cover"
                                     loading="lazy"
@@ -38,7 +40,7 @@
                         <a href={ad.url} target="_blank">
                             <div class="w-full h-32 md:h-48 bg-gradient-to-r from-slate-700 to-slate-600 flex items-center justify-center font-bold text-white text-center">
                                 <img 
-                                    src={`${ad.image}?v=${Date.now()}`} 
+                                    src={`${ad.image}?v=${cacheBuster}`} 
                                     alt={ad.title} 
                                     class="w-full h-full object-cover"
                                     loading="lazy"
@@ -58,7 +60,7 @@
                         <a href={ad.url} target="_blank">
                             <div class="w-20 h-32 md:w-48 md:h-96 bg-gradient-to-b from-slate-700 to-slate-600 flex items-center justify-center font-bold text-center">
                                 <img 
-                                    src={`${ad.image}?v=${Date.now()}`} 
+                                    src={`${ad.image}?v=${cacheBuster}`} 
                                     alt={ad.title} 
                                     class="w-full h-full object-cover"
                                     loading="lazy"

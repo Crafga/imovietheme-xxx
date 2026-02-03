@@ -93,6 +93,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	response.headers.delete('Link');
 	response.headers.delete('x-sveltekit-page');
+	response.headers.delete('Via');
 
 	response.headers.set('X-Frame-Options', 'DENY');
 	response.headers.set('X-Content-Type-Options', 'nosniff');

@@ -73,6 +73,9 @@
 		bottomAdVisible = false;
 	};
 
+	// Cache buster timestamp - fixed per session to prevent re-render issues
+	const cacheBuster = Date.now();
+
 	// SEO: Generate structured data
 	$: websiteJsonLd = generateWebsiteJsonLd(
 		data.set?.title ?? 'iMovie',
@@ -117,7 +120,7 @@
 				<div class="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
 					<Icon icon="mdi:movie-open-play-outline" class="w-5 h-5" />
 				</div>
-				<img src={`${data.set?.logo ?? '/logo3.png'}?v=${Date.now()}`} alt={data.set?.title ?? 'iMovie'} width="200" >
+				<img src={`${data.set?.logo ?? '/logo3.png'}?v=${cacheBuster}`} alt={data.set?.title ?? 'iMovie'} width="200" >
 				<!-- <span class="text-xl font-bold text-gradient">iMovie</span> -->
 			</a>
 
@@ -173,7 +176,7 @@
 				
 				<a href={leftAd.url} target="_blank" class="block w-full h-full">
 					<img 
-						src={`${leftAd.image}?v=${Date.now()}`} 
+						src={`${leftAd.image}?v=${cacheBuster}`} 
 						alt={leftAd.title} 
 						class="w-full h-full object-cover rounded"
 					/>
@@ -199,7 +202,7 @@
 				
 				<a href={rightAd.url} target="_blank" class="block w-full h-full">
 					<img 
-						src={`${rightAd.image}?v=${Date.now()}`} 
+						src={`${rightAd.image}?v=${cacheBuster}`} 
 						alt={rightAd.title} 
 						class="w-full h-full object-cover rounded"
 					/>
@@ -217,7 +220,7 @@
 			<div class="relative max-w-6xl mx-auto bg-surface-200-700-token shadow-lg">
 				<a href={footerAd.url} target="_blank" class="block w-full h-full">
 					<img 
-						src={`${footerAd.image}?v=${Date.now()}`} 
+						src={`${footerAd.image}?v=${cacheBuster}`} 
 						alt={footerAd.title} 
 						class="w-full h-full object-cover rounded"
 					/>
