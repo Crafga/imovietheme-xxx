@@ -117,7 +117,7 @@
 				<div class="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
 					<Icon icon="mdi:movie-open-play-outline" class="w-5 h-5" />
 				</div>
-				<img src={data.set?.logo ?? '/logo3.png'} alt={data.set?.title ?? 'iMovie'} width="200" >
+				<img src={`${data.set?.logo ?? '/logo3.png'}?v=${Date.now()}`} alt={data.set?.title ?? 'iMovie'} width="200" >
 				<!-- <span class="text-xl font-bold text-gradient">iMovie</span> -->
 			</a>
 

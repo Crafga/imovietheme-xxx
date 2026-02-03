@@ -18,7 +18,7 @@
                         <a href={ad.url} target="_blank">
                             <div class="w-20 h-32 md:w-48 md:h-96 bg-gradient-to-b from-slate-700 to-slate-600 flex items-center justify-center font-bold text-center">
                                 <img 
-                                    src={ad.image} 
+                                    src={`${ad.image}?v=${Date.now()}`} 
                                     alt={ad.title} 
                                     class="w-full h-full object-cover"
                                     loading="lazy"
@@ -38,7 +38,7 @@
                         <a href={ad.url} target="_blank">
                             <div class="w-full h-32 md:h-48 bg-gradient-to-r from-slate-700 to-slate-600 flex items-center justify-center font-bold text-white text-center">
                                 <img 
-                                    src={ad.image} 
+                                    src={`${ad.image}?v=${Date.now()}`} 
                                     alt={ad.title} 
                                     class="w-full h-full object-cover"
                                     loading="lazy"
@@ -58,7 +58,7 @@
                         <a href={ad.url} target="_blank">
                             <div class="w-20 h-32 md:w-48 md:h-96 bg-gradient-to-b from-slate-700 to-slate-600 flex items-center justify-center font-bold text-center">
                                 <img 
-                                    src={ad.image} 
+                                    src={`${ad.image}?v=${Date.now()}`} 
                                     alt={ad.title} 
                                     class="w-full h-full object-cover"
                                     loading="lazy"
