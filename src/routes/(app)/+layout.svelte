@@ -173,7 +173,7 @@
 				
 				<a href={leftAd.url} target="_blank" class="block w-full h-full">
 					<img 
-						src={leftAd.image} 
+						src={`${leftAd.image}?v=${Date.now()}`} 
 						alt={leftAd.title} 
 						class="w-full h-full object-cover rounded"
 					/>
@@ -199,7 +199,7 @@
 				
 				<a href={rightAd.url} target="_blank" class="block w-full h-full">
 					<img 
-						src={rightAd.image} 
+						src={`${rightAd.image}?v=${Date.now()}`} 
 						alt={rightAd.title} 
 						class="w-full h-full object-cover rounded"
 					/>
@@ -217,7 +217,7 @@
 			<div class="relative max-w-6xl mx-auto bg-surface-200-700-token shadow-lg">
 				<a href={footerAd.url} target="_blank" class="block w-full h-full">
 					<img 
-						src={footerAd.image} 
+						src={`${footerAd.image}?v=${Date.now()}`} 
 						alt={footerAd.title} 
 						class="w-full h-full object-cover rounded"
 					/>
